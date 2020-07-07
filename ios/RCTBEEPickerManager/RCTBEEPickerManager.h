@@ -14,5 +14,5 @@
 #endif
 
 @interface RCTBEEPickerManager : NSObject<RCTBridgeModule>
-
+@property(nonatomic,strong)NSNumber *pickerToolBarHeight;
 @end

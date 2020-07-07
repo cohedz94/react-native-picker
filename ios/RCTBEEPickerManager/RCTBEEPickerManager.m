@@ -57,6 +57,8 @@ RCT_EXPORT_METHOD(_init:(NSDictionary *)indic){
     NSString *pickerFontFamily=[NSString stringWithFormat:@"%@",indic[@"pickerFontFamily"]];
     NSArray *pickerFontColor=indic[@"pickerFontColor"];
     NSString *pickerRowHeight=indic[@"pickerRowHeight"];
+    self.pickerToolBarHeight = indic[@"pickerToolBarHeight"];
+    
     id pickerData=indic[@"pickerData"];
 
     NSMutableDictionary *dataDic=[[NSMutableDictionary alloc]init];
@@ -80,8 +82,7 @@ RCT_EXPORT_METHOD(_init:(NSDictionary *)indic){
         self.height=220;
     }
     
-    self.pick=[[BzwPicker alloc]initWithFrame:CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, self.height) dic:dataDic leftStr:pickerCancelBtnText centerStr:pickerTitleText rightStr:pickerConfirmBtnText topbgColor:pickerToolBarBg bottombgColor:pickerBg leftbtnbgColor:pickerCancelBtnColor rightbtnbgColor:pickerConfirmBtnColor centerbtnColor:pickerTitleColor selectValueArry:selectArry weightArry:weightArry pickerToolBarFontSize:pickerToolBarFontSize pickerFontSize:pickerFontSize pickerFontColor:pickerFontColor  pickerRowHeight: pickerRowHeight pickerFontFamily:pickerFontFamily];
-    
+    self.pick=[[BzwPicker alloc]initWithFrame:CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, self.height) dic:dataDic leftStr:pickerCancelBtnText centerStr:pickerTitleText rightStr:pickerConfirmBtnText topbgColor:pickerToolBarBg bottombgColor:pickerBg leftbtnbgColor:pickerCancelBtnColor rightbtnbgColor:pickerConfirmBtnColor centerbtnColor:pickerTitleColor selectValueArry:selectArry weightArry:weightArry pickerToolBarFontSize:pickerToolBarFontSize pickerFontSize:pickerFontSize pickerFontColor:pickerFontColor  pickerRowHeight: pickerRowHeight pickerFontFamily:pickerFontFamily pickerToolBarHeight: self.pickerToolBarHeight];
     _pick.bolock=^(NSDictionary *backinfoArry){
 
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -102,8 +103,11 @@ RCT_EXPORT_METHOD(show){
 
         dispatch_async(dispatch_get_main_queue(), ^{
             [UIView animateWithDuration:.3 animations:^{
-
-                [_pick setFrame:CGRectMake(0, SCREEN_HEIGHT-self.height, SCREEN_WIDTH, self.height)];
+                int extraHeight = 0;
+                if([self.pickerToolBarHeight isEqualToNumber:@(0)]){
+                    extraHeight = 40;
+                }
+                [_pick setFrame:CGRectMake(0, SCREEN_HEIGHT-self.height + extraHeight, SCREEN_WIDTH, self.height - extraHeight)];
 
             }];
         });
