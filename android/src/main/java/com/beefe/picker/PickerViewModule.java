@@ -387,11 +387,12 @@ public class PickerViewModule extends ReactContextBaseJavaModule implements Life
             }
 
             int height = barViewHeight + pickerViewHeight;
-            if (dialog == null) {
+//            if (dialog == null) {
                 dialog = new Dialog(activity, R.style.Dialog_Full_Screen);
                 dialog.setContentView(view);
                 WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
                 Window window = dialog.getWindow();
+                barLayout.setVisibility(View.VISIBLE);
                 if (window != null) {
                     if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                         window.setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
@@ -408,14 +409,12 @@ public class PickerViewModule extends ReactContextBaseJavaModule implements Life
                     layoutParams.width = WindowManager.LayoutParams.MATCH_PARENT;
                     layoutParams.height = height;
                     layoutParams.gravity = Gravity.BOTTOM;
-                    window.setAttributes(layoutParams);   
+                    window.setAttributes(layoutParams);
                 }
-            } else {
-                dialog.dismiss();
-                dialog.setContentView(view);
-            }
-
-            barLayout.setVisibility(View.INVISIBLE);
+//            } else {
+//                dialog.dismiss();
+//                dialog.setContentView(view);
+//            }
         }
     }
 
